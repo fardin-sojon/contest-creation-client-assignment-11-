@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@theme {
+    --color-primary: #3b82f6;
+    /* blue-500 */
+}
+
+:root {
+    --p: 217 91% 60%;
+    /* DaisyUI primary variable override for blue-500 */
+}
+
+[data-theme="winter"] {
+    --p: 217 91% 60%;
+    --pc: 100 0% 100%;
+    /* text content on primary */
+}

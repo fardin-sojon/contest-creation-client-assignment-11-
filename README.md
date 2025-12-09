@@ -32,11 +32,14 @@ A modern, full-stack Contest Creation Platform where functionalities meet creati
 -   **Payment**: Stripe
 
 ## 🚀 Getting Started
+### 
+🔗 [Server Repository.](https://github.com/fardin-sojon/contest-creation-server-assignment-11.git)
 
 1.  Clone the repository.
 2.  Install dependencies: `npm install` in both `client` and `server` folders.
 3.  Setup `.env` files with your MongoDB URI, Stripe Key, and Firebase config.
 4.  Run `npm run dev` in client and `nodemon index.js` in server.
+
 
 ---
 *Developed by Fardin Rahman Sojon*

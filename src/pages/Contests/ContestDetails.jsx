@@ -142,7 +142,7 @@ const ContestDetails = () => {
                             <div className="flex items-center gap-4">
                                 <div className="avatar">
                                     <div className="w-12 rounded-full">
-                                        <img src={winner.photo || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"} />
+                                        <img src={winner.image || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"} />
                                     </div>
                                 </div>
                                 <span>Winner: {winner.name}</span>

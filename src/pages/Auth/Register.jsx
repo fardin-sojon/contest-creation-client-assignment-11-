@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const Register = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
@@ -50,27 +51,32 @@ const Register = () => {
                     <h1 className="text-5xl font-bold">Sign up now!</h1>
                     <p className="py-6">Register to become a Contest Creator or Participant.</p>
                 </div>
-                <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                <motion.div 
+                    initial={{ x: 50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.6 }}
+                    className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100"
+                >
                     <form onSubmit={handleSubmit(onSubmit)} className="card-body">
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Name</span>
                             </label>
-                            <input type="text" {...register("name", { required: true })} name="name" placeholder="Name" className="input input-bordered" />
+                            <input type="text" {...register("name", { required: true })} name="name" placeholder="Name" className="input input-bordered w-full" />
                             {errors.name && <span className="text-red-600">Name is required</span>}
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Photo URL</span>
                             </label>
-                            <input type="text" {...register("photoURL", { required: true })} placeholder="Photo URL" className="input input-bordered" />
+                            <input type="text" {...register("photoURL", { required: true })} placeholder="Photo URL" className="input input-bordered w-full" />
                             {errors.photoURL && <span className="text-red-600">Photo URL is required</span>}
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input type="email" {...register("email", { required: true })} name="email" placeholder="email" className="input input-bordered" />
+                            <input type="email" {...register("email", { required: true })} name="email" placeholder="email" className="input input-bordered w-full" />
                             {errors.email && <span className="text-red-600">Email is required</span>}
                         </div>
                         <div className="form-control">
@@ -96,7 +102,7 @@ const Register = () => {
                         </div>
                     </form>
                     <p className="text-center my-4">Already have an account? <Link className="text-orange-600 font-bold" to="/login">Login</Link> </p>
-                </div>
+                </motion.div>
             </div>
         </div>
     );

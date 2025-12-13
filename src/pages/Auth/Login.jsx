@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import auth from "../../firebase/firebase.config";
+import { motion } from "framer-motion";
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -94,13 +94,18 @@ const Login = () => {
                     <h1 className="text-5xl font-bold">Login now!</h1>
                     <p className="py-6">Join ContestHub to participate and win existing prizes.</p>
                 </div>
-                <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                <motion.div 
+                    initial={{ x: 50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.6 }}
+                    className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100"
+                >
                     <form onSubmit={handleSubmit(onSubmit)} className="card-body">
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input type="email" {...register("email", { required: true })} placeholder="email" className="input input-bordered" />
+                            <input type="email" {...register("email", { required: true })} placeholder="email" className="input input-bordered w-full" />
                             {errors.email && <span className="text-red-600">Email is required</span>}
                         </div>
                         <div className="form-control">
@@ -135,7 +140,7 @@ const Login = () => {
                         </button>
                     </div>
                     <p className="text-center my-4">New here? <Link className="text-orange-600 font-bold" to="/register">Create a New Account</Link> </p>
-                </div>
+                </motion.div>
             </div>
         </div>
     );

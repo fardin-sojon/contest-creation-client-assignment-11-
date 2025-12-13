@@ -4,6 +4,7 @@ import ContestCard from "../../components/ContestCard";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Loading from "../../components/Loading";
+import { motion } from "framer-motion";
 
 const AllContests = () => {
     const axiosPublic = useAxiosPublic();
@@ -30,6 +31,22 @@ const AllContests = () => {
     const totalPages = Math.ceil(count / limit);
 
     const categories = ["Image Design", "Article Writing", "Marketing Strategy", "Digital Advertisement", "Gaming Review", "Book Review", "Business Idea", "Movie Review"];
+    
+    // Animation Variants
+    const container = {
+        hidden: { opacity: 0 },
+        show: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1
+            }
+        }
+    }
+
+    const item = {
+        hidden: { opacity: 0, y: 20 },
+        show: { opacity: 1, y: 0 }
+    }
 
     return (
         <div className="p-4 md:p-8">
@@ -48,11 +65,18 @@ const AllContests = () => {
                     <Loading />
                 </div>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <motion.div 
+                    variants={container}
+                    initial="hidden"
+                    animate="show"
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                >
                     {contests.map(contest => (
-                        <ContestCard key={contest._id} contest={contest} />
+                        <motion.div key={contest._id} variants={item}>
+                            <ContestCard contest={contest} />
+                        </motion.div>
                     ))}
-                </div>
+                </motion.div>
             )}
 
 

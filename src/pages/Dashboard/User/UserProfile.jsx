@@ -47,7 +47,8 @@ const UserProfile = () => {
     const onSubmit = data => {
         const updatedInfo = {
             name: data.name,
-            photo: data.photoURL
+            photo: data.photoURL,
+            address: data.address
         }
         
 
@@ -83,7 +84,8 @@ const UserProfile = () => {
                     </div>
                  </div>
                  <h3 className="text-3xl font-bold mb-1">{dbUser.name || user.displayName}</h3>
-                 <p className="text-gray-500 text-lg mb-6">{user.email}</p>
+                 <p className="text-gray-500 text-lg mb-1">{user.email}</p>
+                 {dbUser.address && <p className="text-gray-400 text-sm mb-6">{dbUser.address}</p>}
                  
                  <div className="flex flex-col md:flex-row gap-8 w-full justify-center items-center mb-8">
                      <div className="stats shadow">
@@ -140,6 +142,10 @@ const UserProfile = () => {
                             <div className="form-control">
                                 <label className="label">Photo URL</label>
                                 <input type="text" defaultValue={user.photoURL} {...register("photoURL")} className="input input-bordered" />
+                            </div>
+                            <div className="form-control">
+                                <label className="label">Address</label>
+                                <input type="text" defaultValue={dbUser.address || ""} {...register("address")} className="input input-bordered" placeholder="City, Country" />
                             </div>
                             <div className="modal-action">
                                 <button type="submit" className="btn btn-primary">Update</button>

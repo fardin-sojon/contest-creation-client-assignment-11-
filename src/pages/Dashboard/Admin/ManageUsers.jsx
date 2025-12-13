@@ -27,7 +27,10 @@ const ManageUsers = () => {
                     });
                 }
             })
-            .catch(err => Swal.fire('Error', 'Failed to update role.', 'error'));
+            .catch(err => {
+                console.error("Make Admin Error:", err);
+                Swal.fire('Error', 'Failed to update role.', 'error');
+            });
     }
     
     const handleMakeCreator = user => {

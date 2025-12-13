@@ -5,6 +5,7 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAdmin from "../hooks/useAdmin";
 import useCreator from "../hooks/useCreator"; 
+import logoImg from "../assets/logo.png"; 
 
 const DashboardLayout = () => {
     const { user, logOut } = useAuth();
@@ -43,24 +44,39 @@ const DashboardLayout = () => {
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label> 
                 <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-                    {/* Sidebar  */}
-                    
-                    {isAdmin && <>
-                        <li><NavLink to="/dashboard/manageUsers"><FaUsers /> Manage Users</NavLink></li>
-                        <li><NavLink to="/dashboard/manageContests"><FaList /> Manage Contests</NavLink></li>
-                    </>}
+                    {/* Sidebar Header */}
+                    <Link to="/" className="mb-6 px-4 flex items-center gap-2 hover:opacity-80 transition-opacity">
+                        <img src={logoImg} alt="Logo" className="w-8 h-8 rounded-full" />
+                        <span className="font-bold text-xl">ContestHub</span>
+                    </Link>
 
-                    {isCreator && <>
-                        <li><NavLink to="/dashboard/addContest"><FaPlusSquare /> Add Contest</NavLink></li>
-                        <li><NavLink to="/dashboard/myCreatedContests"><FaList /> My Created Contests</NavLink></li>
-                    </>}
+                    {/* Sidebar Menus */}
+                    {isAdmin && (
+                        <>
+                            <div className="text-xs uppercase font-bold text-gray-500 mb-2 px-4">Admin Dashboard</div>
+                            <li><NavLink to="/dashboard/manageUsers" className={({ isActive }) => isActive ? "active font-bold text-primary" : "" }><FaUsers /> Manage Users</NavLink></li>
+                            <li><NavLink to="/dashboard/manageContests" className={({ isActive }) => isActive ? "active font-bold text-primary" : "" }><FaList /> Manage Contests</NavLink></li>
+                            <li><NavLink to="/dashboard/profile" className={({ isActive }) => isActive ? "active font-bold text-primary" : "" }><FaUser /> My Profile</NavLink></li>
+                        </>
+                    )}
 
-                    <li><NavLink to="/dashboard/profile"><FaUser /> My Profile</NavLink></li>
+                    {isCreator && (
+                        <>
+                            <div className="text-xs uppercase font-bold text-gray-500 mb-2 px-4">Creator Dashboard</div>
+                            <li><NavLink to="/dashboard/addContest" className={({ isActive }) => isActive ? "active font-bold text-primary" : "" }><FaPlusSquare /> Add Contest</NavLink></li>
+                            <li><NavLink to="/dashboard/myCreatedContests" className={({ isActive }) => isActive ? "active font-bold text-primary" : "" }><FaList /> My Created Contests</NavLink></li>
+                            <li><NavLink to="/dashboard/profile" className={({ isActive }) => isActive ? "active font-bold text-primary" : "" }><FaUser /> My Profile</NavLink></li>
+                        </>
+                    )}
 
-                    {(!isAdmin && !isCreator) && <>
-                        <li><NavLink to="/dashboard/myParticipated"><FaList /> My Participated Contest</NavLink></li>
-                        <li><NavLink to="/dashboard/myWinning"><FaTrophy /> My Winning Contest</NavLink></li>
-                    </>}
+                    {(!isAdmin && !isCreator) && (
+                        <>
+                            <div className="text-xs uppercase font-bold text-gray-500 mb-2 px-4">User Dashboard</div>
+                            <li><NavLink to="/dashboard/myParticipated" className={({ isActive }) => isActive ? "active font-bold text-primary" : "" }><FaList /> Participated Contests</NavLink></li>
+                            <li><NavLink to="/dashboard/myWinning" className={({ isActive }) => isActive ? "active font-bold text-primary" : "" }><FaTrophy /> Winning Contests</NavLink></li>
+                            <li><NavLink to="/dashboard/profile" className={({ isActive }) => isActive ? "active font-bold text-primary" : "" }><FaUser /> My Profile</NavLink></li>
+                        </>
+                    )}
 
                     <div className="divider"></div> 
                     <li><NavLink to="/"><FaHome /> Home</NavLink></li>

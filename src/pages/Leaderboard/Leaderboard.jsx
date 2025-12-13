@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { FaTrophy, FaCrown } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 import placeholderImg from "../../assets/placeholder.png";
 
@@ -16,7 +17,14 @@ const Leaderboard = () => {
 
     return (
         <div className="p-8">
-            <h2 className="text-4xl font-bold text-center mb-12">Leaderboard</h2>
+            <motion.h2 
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-4xl font-bold text-center mb-12"
+            >
+                Leaderboard
+            </motion.h2>
             <div className="max-w-4xl mx-auto overflow-x-auto">
                 <table className="table table-lg">
                     <thead>
@@ -29,7 +37,14 @@ const Leaderboard = () => {
                     </thead>
                     <tbody>
                         {leaders.map((leader, index) => (
-                            <tr key={leader._id} className={index < 3 ? "bg-base-200 font-bold" : ""}>
+                            <motion.tr 
+                                key={leader._id} 
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: index * 0.1, duration: 0.4 }}
+                                whileHover={{ scale: 1.02, backgroundColor: "rgba(0,0,0,0.05)" }}
+                                className={`transition-colors ${index < 3 ? "bg-base-200 font-bold" : ""}`}
+                            >
                                 <th>{index + 1}</th>
                                 <td>
                                     <div className="flex items-center gap-6">
@@ -49,7 +64,7 @@ const Leaderboard = () => {
                                     {index === 1 && <FaTrophy className="text-slate-400 text-3xl drop-shadow-md" />}
                                     {index === 2 && <FaTrophy className="text-amber-600 text-3xl drop-shadow-md" />}
                                 </td>
-                            </tr>
+                            </motion.tr>
                         ))}
                     </tbody>
                 </table>

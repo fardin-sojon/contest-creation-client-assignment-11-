@@ -8,19 +8,20 @@ import { motion } from "framer-motion";
 
 const AllContests = () => {
     const axiosPublic = useAxiosPublic();
-    const [searchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
+    
+    // Read params from URL
+    const category = searchParams.get('category') || '';
     const initialSearch = searchParams.get('search') || '';
-    const [tab, setTab] = useState(''); 
     const [page, setPage] = useState(1);
     const limit = 10;
-    
 
     const { data = {}, isLoading } = useQuery({
-        queryKey: ['all-contests', tab, initialSearch, page],
+        queryKey: ['all-contests', category, initialSearch, page],
         queryFn: async () => {
             let url = `/contests?page=${page}&limit=${limit}&status=approved`;
-            if (tab) url += `&type=${tab}`;
-            if (initialSearch) url += `&search=${initialSearch}`;
+            if (category) url += `&type=${encodeURIComponent(category)}`;
+            if (initialSearch) url += `&search=${encodeURIComponent(initialSearch)}`;
             const response = await axiosPublic.get(url);
             return response.data; 
         }
@@ -48,15 +49,38 @@ const AllContests = () => {
         show: { opacity: 1, y: 0 }
     }
 
+    // Helper to update category
+    const handleCategoryChange = (newCategory) => {
+        setPage(1);
+        const newParams = new URLSearchParams(searchParams);
+        if (newCategory) {
+            newParams.set('category', newCategory);
+        } else {
+            newParams.delete('category');
+        }
+        setSearchParams(newParams);
+        // Force refetch if needed (though key change handles it)
+    };
+
     return (
         <div className="p-4 md:p-8">
             <h2 className="text-3xl font-bold text-center mb-8">All Contests</h2>
             
-
-            <div className="tabs tabs-boxed justify-center mb-8 flex-wrap">
-                <a className={`tab ${tab === '' ? 'tab-active' : ''}`} onClick={() => {setTab(''); setPage(1)}}>All</a>
+            <div className="flex flex-wrap justify-center gap-2 mb-8">
+                <button 
+                    className={`btn btn-sm ${category === '' ? 'btn-primary' : 'btn-outline border-base-300'}`} 
+                    onClick={() => handleCategoryChange('')}
+                >
+                    All
+                </button>
                 {categories.map(cat => (
-                    <a key={cat} className={`tab ${tab === cat ? 'tab-active' : ''}`} onClick={() => {setTab(cat); setPage(1)}}>{cat}</a>
+                    <button 
+                        key={cat} 
+                        className={`btn btn-sm ${category === cat ? 'btn-primary' : 'btn-outline border-base-300'}`} 
+                        onClick={() => handleCategoryChange(cat)}
+                    >
+                        {cat}
+                    </button>
                 ))}
             </div>
 
@@ -71,11 +95,17 @@ const AllContests = () => {
                     animate="show"
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                 >
-                    {contests.map(contest => (
-                        <motion.div key={contest._id} variants={item}>
-                            <ContestCard contest={contest} />
-                        </motion.div>
-                    ))}
+                    {contests.length > 0 ? (
+                        contests.map(contest => (
+                            <motion.div key={contest._id} variants={item}>
+                                <ContestCard contest={contest} />
+                            </motion.div>
+                        ))
+                    ) : (
+                        <div className="col-span-full text-center py-20 text-gray-500">
+                            <p className="text-xl">No contests found for this category.</p>
+                        </div>
+                    )}
                 </motion.div>
             )}
 

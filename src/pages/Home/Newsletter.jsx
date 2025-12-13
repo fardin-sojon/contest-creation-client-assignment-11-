@@ -1,18 +1,19 @@
+import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 
 const Newsletter = () => {
-    const handleSubscribe = (e) => {
-        e.preventDefault();
-        const email = e.target.email.value;
-        if (email) {
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+
+    const onSubmit = (data) => {
+        if (data.email) {
             Swal.fire({
                 title: 'Subscribed!',
                 text: 'Thank you for subscribing to our newsletter.',
                 icon: 'success',
                 confirmButtonText: 'Great!'
             });
-            e.target.reset();
+            reset();
         }
     };
 
@@ -36,14 +37,16 @@ const Newsletter = () => {
                         Subscribe to our newsletter to get latest updates on new contests, winner announcements, and exclusive tips to win big.
                     </p>
 
-                    <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
-                        <input 
-                            type="email" 
-                            name="email" 
-                            placeholder="Enter your email address" 
-                            className="input input-bordered w-full sm:w-auto flex-grow px-6 py-4 rounded-full focus:outline-none focus:ring-2 focus:ring-white text-gray-900 placeholder-gray-500"
-                            required
-                        />
+                    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
+                        <div className="w-full sm:w-auto flex-grow">
+                             <input 
+                                type="email" 
+                                placeholder="Enter your email address" 
+                                {...register("email", { required: true })}
+                                className="input input-bordered w-full px-6 py-4 rounded-full focus:outline-none focus:ring-2 focus:ring-white text-gray-900 placeholder-gray-500"
+                            />
+                            {errors.email && <span className="text-red-200 text-sm mt-1 block text-left ml-4">Email is required</span>}
+                        </div>
                         <button 
                             type="submit" 
                             className="btn bg-white text-blue-600 hover:bg-gray-100 border-none rounded-full px-8 text-lg font-bold shadow-lg transform hover:-translate-y-1 transition duration-300"

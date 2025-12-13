@@ -4,7 +4,7 @@ const ContestCard = ({ contest }) => {
     const { _id, name, image, description, participationCount, type } = contest;
     return (
         <div className="card card-compact bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
-            <figure><img src={image} alt={name} className="h-48 w-full object-cover" /></figure>
+            <figure className="overflow-hidden"><img src={image} alt={name} className="h-48 w-full object-cover hover:scale-110 transition-transform duration-500" /></figure>
             <div className="card-body">
                 <h2 className="card-title">{name}</h2>
                 <div className="badge badge-secondary">{type}</div>

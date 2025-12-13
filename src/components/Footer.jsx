@@ -3,6 +3,8 @@ import { FaFacebookF, FaXTwitter, FaInstagram, FaLinkedinIn } from "react-icons/
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 
+import logo from "../assets/logo.png";
+
 const Footer = () => {
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -20,7 +22,10 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-8">
         {/* Website Info */}
         <motion.div variants={itemVariants}>
-          <h1 className="text-2xl font-bold mb-2">ContestHub</h1>
+          <div className="flex items-center gap-2 mb-2">
+            <img src={logo} alt="ContestHub Logo" className="w-10 h-10" />
+            <h1 className="text-2xl font-bold">ContestHub</h1>
+          </div>
           <p className="text-sm">
             Join contests, showcase your skills, <br /> and win exciting prizes.
           </p>

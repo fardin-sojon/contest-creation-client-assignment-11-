@@ -8,16 +8,22 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { motion } from "framer-motion";
 
 const Login = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const { signIn, googleSignIn } = useAuth();
+    const { register, handleSubmit, getValues, formState: { errors } } = useForm();
+    const { signIn, googleSignIn, resetPassword } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
     const [showPassword, setShowPassword] = useState(false);
 
+    const handleForgotPassword = () => {
+        const email = getValues("email");
+        navigate("/forgot-password", { state: { email } });
+    }
+
     const onSubmit = data => {
         signIn(data.email, data.password)
             .then(result => {
+// ... existing sign in success code ...
                 const user = result.user;
                 Swal.fire({
                     title: 'User Login Successful.',
@@ -125,7 +131,7 @@ const Login = () => {
                             </div>
                             {errors.password && <span className="text-red-600">Password is required</span>}
                             <label className="label">
-                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                                <button type="button" onClick={handleForgotPassword} className="label-text-alt link link-hover hover:text-blue-600 p-0 bg-transparent border-none">Forgot password?</button>
                             </label>
                         </div>
                         <div className="form-control mt-6">

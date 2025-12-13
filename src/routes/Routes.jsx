@@ -5,6 +5,7 @@ import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
+import ForgotPassword from "../pages/Auth/ForgotPassword";
 import ErrorPage from "../pages/ErrorPage";
 import AllContests from "../pages/Contests/AllContests";
 import PrivateRoute from "./PrivateRoute";
@@ -62,6 +63,10 @@ export const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "forgot-password",
+        element: <ForgotPassword />,
       },
       {
         path: "register",

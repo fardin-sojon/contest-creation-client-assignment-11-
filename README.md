@@ -1,7 +1,7 @@
 # ContestHub - Creative Contest Management Platform
 
-[![Live Site](https://img.shields.io/badge/Live-Site-blue?style=for-the-badge&logo=vercel)](https://your-live-site-url.com) 
-*(Please replace the link above with your actual deployed URL)*
+### 
+🔗 [🌐 Live Link](https://contest-creation-assignment-11.netlify.app)
 
 ## 🚀 Overview
 **ContestHub** is a production-ready, full-stack web application that revolutionizes how creative contests are managed. It serves as a bridge between **Contest Creators**, who want to host design, writing, or gaming challenges, and **Participants**, who compete to win prizes.
@@ -43,10 +43,14 @@ With a secure and user-friendly interface, ContestHub handles everything from au
 *   **JWT** (JSON Web Token)
 *   **Stripe SDK**
 
+## 🚀 Getting Started
+🔗 [Server Repository.](https://github.com/fardin-sojon/contest-creation-server-assignment-11.git)
+
 ## ⚙️ Local Installation
 1.  **Clone the repository**:
     ```bash
-    git clone https://github.com/fardin-sojon/contest-creation-client-assignment-11.git
+    git clone https://github.com/fardin-sojon/contest-creation-client-assignment-11-.git
+
     cd contest-creation-client-assignment-11
     ```
 2.  **Install Dependencies**:
@@ -66,7 +70,8 @@ With a secure and user-friendly interface, ContestHub handles everything from au
 4.  **Run Locally**:
     ```bash
     npm run dev
+    nodemon index.js
     ```
 
 ---
-*© 2025 ContestHub. Developed by Fardin Sojon.*
+*© 2025 ContestHub. Developed by Fardin Rahman Sojon.*

@@ -29,6 +29,13 @@ import MyCreatedContests from "../pages/Dashboard/Creator/MyCreatedContests";
 import ContestSubmissions from "../pages/Dashboard/Creator/ContestSubmissions";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import ManageContests from "../pages/Dashboard/Admin/ManageContests";
+import Contact from "../pages/Contact";
+import Blog from "../pages/Blog";
+import HelpSupport from "../pages/HelpSupport";
+
+import DashboardHome from "../pages/Dashboard/DashboardHome"; // Import new component
+
+// ... imports remain same ...
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +43,7 @@ export const router = createBrowserRouter([
     element: <MainLayout />,
     errorElement: <ErrorPage />,
     children: [
+        // ... existing routes ...
       {
         path: "/",
         element: <Home />,
@@ -43,6 +51,22 @@ export const router = createBrowserRouter([
       {
         path: "about",
         element: <About />,
+      },
+      {
+        path: "about",
+        element: <About />,
+      },
+      {
+        path: "contact",
+        element: <Contact />,
+      },
+      {
+        path: "blog",
+        element: <Blog />,
+      },
+      {
+        path: "help",
+        element: <HelpSupport />,
       },
       {
         path: "all-contests",
@@ -87,7 +111,10 @@ export const router = createBrowserRouter([
     element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
     errorElement: <ErrorPage />,
     children: [
-
+        {
+            index: true, // Make this the default child route for /dashboard
+            element: <DashboardHome />
+        },
         {
             path: "myParticipated",
             element: <MyParticipated />
@@ -100,6 +127,7 @@ export const router = createBrowserRouter([
             path: "profile",
             element: <UserProfile />
         },
+// ... rest of the file ...
 
         {
             path: "addContest",

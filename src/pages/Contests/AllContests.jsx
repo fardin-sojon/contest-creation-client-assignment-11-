@@ -14,14 +14,17 @@ const AllContests = () => {
     const category = searchParams.get('category') || '';
     const initialSearch = searchParams.get('search') || '';
     const [page, setPage] = useState(1);
+    const [searchTerm, setSearchTerm] = useState(initialSearch); // Local state for input
+    const [sort, setSort] = useState(''); // Sort state
     const limit = 10;
 
     const { data = {}, isLoading } = useQuery({
-        queryKey: ['all-contests', category, initialSearch, page],
+        queryKey: ['all-contests', category, searchTerm, page, sort], // Add sort and searchTerm to key
         queryFn: async () => {
             let url = `/contests?page=${page}&limit=${limit}&status=approved`;
             if (category) url += `&type=${encodeURIComponent(category)}`;
-            if (initialSearch) url += `&search=${encodeURIComponent(initialSearch)}`;
+            if (searchTerm) url += `&search=${encodeURIComponent(searchTerm)}`;
+            if (sort) url += `&sort=${encodeURIComponent(sort)}`; // Append sort param
             const response = await axiosPublic.get(url);
             return response.data; 
         }
@@ -59,13 +62,49 @@ const AllContests = () => {
             newParams.delete('category');
         }
         setSearchParams(newParams);
-        // Force refetch if needed (though key change handles it)
+    };
+
+    // Handle Search Submit
+    const handleSearch = (e) => {
+        e.preventDefault();
+        setPage(1);
+        // Trigger refetch by updating state which is in queryKey
     };
 
     return (
         <div className="p-4 md:p-8">
             <h2 className="text-3xl font-bold text-center mb-8">All Contests</h2>
             
+            {/* Search and Filters Section */}
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
+                {/* Search Bar */}
+                <form onSubmit={handleSearch} className="join w-full md:w-auto">
+                    <input 
+                        type="text" 
+                        placeholder="Search contests..." 
+                        className="input input-bordered join-item w-full md:w-64" 
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    <button type="submit" className="btn btn-primary join-item">Search</button>
+                </form>
+
+                {/* Sort Dropdown */}
+                <select 
+                    className="select select-bordered w-full md:w-auto"
+                    value={sort}
+                    onChange={(e) => setSort(e.target.value)}
+                >
+                    <option value="">Sort By</option>
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="priceHigh">Price: High to Low</option>
+                    <option value="priceLow">Price: Low to High</option>
+                    <option value="popular">Most Popular</option>
+                </select>
+            </div>
+
+            {/* Category Tabs */}
             <div className="flex flex-wrap justify-center gap-2 mb-8">
                 <button 
                     className={`btn btn-sm ${category === '' ? 'btn-primary' : 'btn-outline border-base-300'}`} 
@@ -103,7 +142,7 @@ const AllContests = () => {
                         ))
                     ) : (
                         <div className="col-span-full text-center py-20 text-gray-500">
-                            <p className="text-xl">No contests found for this category.</p>
+                            <p className="text-xl">No contests found.</p>
                         </div>
                     )}
                 </motion.div>

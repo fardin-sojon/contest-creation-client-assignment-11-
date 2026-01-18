@@ -4,11 +4,18 @@ import { motion } from "framer-motion";
 import WinnerAdvert from "./WinnerAdvert";
 import HowItWorks from "./HowItWorks";
 import Newsletter from "./Newsletter";
+import StatsSection from "./StatsSection";
+import FeatureSection from "./FeatureSection";
+import Testimonials from "./Testimonials";
+import TopCreators from "./TopCreators";
+import FAQ from "./FAQ";
 
 const Home = () => {
     return (
         <div className="space-y-12 overflow-x-hidden">
             <Banner />
+            
+            <StatsSection />
             
             <motion.div 
                 initial={{ opacity: 0, y: 50 }} 
@@ -18,6 +25,8 @@ const Home = () => {
                 <PopularContests />
             </motion.div>
 
+            <FeatureSection />
+
             {/* Winner Section */}
             <motion.div 
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -26,6 +35,8 @@ const Home = () => {
             >
                 <WinnerAdvert />
             </motion.div>
+            
+            <TopCreators />
 
              {/* How It Works Section */}
              <motion.div 
@@ -35,6 +46,9 @@ const Home = () => {
              >
                 <HowItWorks />
              </motion.div>
+             
+             <Testimonials />
+             <FAQ />
 
              {/* Newsletter Section */}
              <motion.div>

@@ -17,7 +17,7 @@ const PopularContests = () => {
         <div className="py-12 px-4 md:px-8">
             <h2 className="text-3xl font-bold text-center mb-12">Popular Contests</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {contests.slice(0, 6).map(contest => (
+                {Array.isArray(contests) && contests.slice(0, 6).map(contest => (
                     <ContestCard key={contest._id} contest={contest} />
                 ))}
             </div>
